@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:SqliteMovieDatabaseMaui.Models"
+             xmlns:viewmodel="clr-namespace:SqliteMovieDatabaseMaui.ViewModels"
+             x:DataType="{Type viewmodel:MovieListViewModel}"
+             x:Class="SqliteMovieDatabaseMaui.Views.MovieListPage"
+             Title="MovieListPage">
+    <StackLayout>
+        <SearchBar Text="" Placeholder="Movie Title" PlaceholderColor="Blue" SearchCommand="{Binding OnIsrefreshingChanged}" SearchCommandParameter="{Binding .}" />
+        <RefreshView Command="{Binding Refresh}" CommandParameter="{Binding .}" IsRefreshing="{Binding Isrefreshing}" RefreshColor="Crimson">
+            <CollectionView RemainingItemsThresholdReachedCommand="{Binding Remainingitems}"
+                            RemainingItemsThresholdReachedCommandParameter="{Binding .}"
+                            SelectionChangedCommand="{Binding Selectionchanged}"
+                            SelectionChangedCommandParameter="{Binding .}"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{Type model:Movie}">
+                    <StackLayout>
+                        <Label Text="{Binding MovieTitle}" />
+                        <Label Text="{Binding MovieDescription}" />
+                        <Label Text="{Binding MovieUrl}" />
+                        <Label Text="{Binding MovieRating}" />
+                    </StackLayout>
+                </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </StackLayout>
+</ContentPage>
